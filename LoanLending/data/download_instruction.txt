@@ -1,0 +1,3 @@
+Download the data folder from the Github repository for fairmlbook (Barocas, Hardt and Narayanan 2018)
+https://github.com/fairmlbook/fairmlbook.github.io/tree/master/code/creditscore/data
+Save it to this folder
