@@ -1,30 +1,72 @@
-# FairSense
+# FairSense: Long-Term Fairness Analysis of ML-Enabled Systems
 
-This repo contains the the source code for the paper: "FairSense: Long-Term Fairness Analysis of ML-Enabled Systems". This paper is accepted by ICSE 2025.
+**Authors** Yining She, Sumon Biswas, Christian Kästner, Eunsuk Kang
 
+This artifact contains the the source code for the paper: "FairSense: Long-Term Fairness Analysis of ML-Enabled Systems". It is composed by two parts: the simulation source code and the sensitivity analysis source code. 
+The experimental results of three case studies presented in the paper can be reproduced using this artifact.
+
+## Provenance
+
+**Paper PDF:** https://arxiv.org/abs/2501.01665
+
+**Supplementary Material:** Located in `./SupplementaryMaterial/`
+
+![The overview of this work](/overview.jpg)
+
+## Setup
 ### Environment Preparation
-Most programs are in python while in predictive policing case study the python main function calls some R functions.
+To run the artifact, we need to install Python 3 and R.
 
-The R version we used is 4.2.3
+**Python:** Tested on Version 3.7 (dependencies listed in `./requirements.txt`)
 
-The python version we used is 3.7. The package environment requirement is in `./requirements.txt`. You can install it using command `pip install requirements.txt` under the repo root folder.
+- Install via: `pip install -r requirements.txt`
+
+**R:** Tested on Version 4.2.3 (required for Predictive Policing case study, dependencies listed in `./r_libraries.txt`)
+
+### Public Datasets
+The artifact contains all three case studies in the paper: **Loan lending**, **Opioid risk prediction**, and **Predictive policing**. 
+
+- **Loan lending:** Dataset available from FairMLBook (Barocas, Hardt, and Narayanan, 2018) https://github.com/fairmlbook/fairmlbook.github.io/tree/master/code/creditscore/data. Save it in `./Simulation/LoanLending/data/`.
+
+- **Opioid risk prediction:** Dataset from MIMIC-IV https://physionet.org/content/mimiciv/2.2/. Save it in `./Simulation/OpioidRisk/mimic-iv-2.2/`.
+
+- **Predictive policing:** Provided in `./Simulation/PoliceAllocation/data/`. We synthezided it following the first few steps in the [previous work](https://github.com/nakpinar/diff-crime-reporting).
+
+## Usage
 
 ### Simulation source code
-The 3 case studies described in the paper are Loan lending, Opioid risk prediction, and Predictive policing. The simulation code for them are in 
+The directory `./Simulation/` contains the code for simulating the evolution of feedback loop model for 3 case study systems. Each case study has a dedicated subfolder:
 
-1.  Loan lending: `./LoanLending`
-2.  Opioid risk prediction: `./OpioidRisk`
-3.  Predictive policing: `./PoliceAllocation`
-   
-For each case study, there are two jupyter notebooks in its corresponding folder.
+- Loan lending: `./Simulation/LoanLending/`
+- Opioid risk prediction: `./Simulation/OpioidRisk/`
+- Predictive policing: `./Simulation/PoliceAllocation/`
 
-To run the simulation and collect traces, run the jupyter notebook `CASESTUDY_montecarlo.ipynb`. 
-Take loan lending as an example. After navigating to `./LoanLending` directory, please run the `loan_lending_montecarlo.ipynb`.
+#### Steps to Run
 
-After running simulation, run `CASESTUDY_simulation_data_postprocess.ipynb` to postprocess the collected simulation traces. This step is to prepare data for sensitivity analysis. For loan lending case study, please run `loan_lending_simulation_data_postprocess.ipynb`.
+1. **Simulation**
+- Run `CASESTUDY_montecarlo.ipynb` in the corresponding subfolder (e.g., `loan_lending_montecarlo.ipynb` for Loan Lending) to collect simulation traces.
+- Outputs are stored in `./Simulation/CASESTUDY/simulation_results/.`
+
+2. **Post-processing**
+- Process simulation traces using `CASESTUDY_simulation_data_postprocess.ipynb` to prepare data for sensitivity analysis.
+- Outputs are stored in the same results folder.
+
+#### More Information
+##### Loan Lending
+Three files of the predictive models (`distribution_to_loans_outcomes.py`, `fico.py`, `solve_credit.py`) are adapted from the [artifact](https://github.com/lydiatliu/delayedimpact/) of "Delayed Impact of Fair Machine Learning:.
+
+##### Opioid Risk
+`/mimic-preprocess/` contains the code to preprocess the MIMIC-IV dataset. Please download the dataset first, then run `selectPopulationPrescribed.ipynb` to selects the target patients, and finally run `selectPopulationPrescribed.ipynb` to divide the dataset for training and simulation. The preprocessed dataset will be stored in `/mimic_data_after_preprocess/`.
+
+`/mimic-model/` contains the code to train the XGBoost model and MLP model. The subfolder `/mimic-model/models/` contains the trained models.
+
+##### Predictive Policing
+`/data/`, `/metadata/`, `/output/`, and `/utils/` are adapted from the [artifact](https://github.com/nakpinar/diff-crime-reporting) of "The effect of differential victim crime reporting on predictive policing systems".
 
 
-### Sensitivity analysis source code
-The directory `./SensitivityAnalysis` contains the programs for analyzing long-term fairness. Each case study has one corresponding folder for analysis under `./SensitivityAnalysis` directory.
+## Sensitivity analysis source code
+The directory `./SensitivityAnalysis/` contains the programs for sensitivity analysis of simulation traces. Each case study has its subfolder.
 
-To get the analysis result, please run the jupyter notebook in the subfolder for each case study. The results shown in the paper can be found in these notebooks.
+The required postprocessed simulation results are already in the folders. 
+
+To get the analysis result, please run `CASESTUDY_regression.ipynb` in the subfolder for each case study (e.g., `loan_lending_regression.ipynb` for Loan Lending). 

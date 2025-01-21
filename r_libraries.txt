@@ -1,0 +1,14 @@
+Please run the following command in R console to install the required packages:
+
+install.packages(c(
+  "pryr",
+  "plyr",
+  "assertthat",
+  "ggplot2",
+  "VGAM",
+  "fastDummies",
+  "forecast",
+  "dplyr",
+  "sf",
+  "purrr"
+))
