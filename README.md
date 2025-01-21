@@ -2,7 +2,7 @@
 
 **Authors** Yining She, Sumon Biswas, Christian Kästner, Eunsuk Kang
 
-This artifact contains the the source code for the paper: "FairSense: Long-Term Fairness Analysis of ML-Enabled Systems". It is composed by two parts: the simulation source code and the sensitivity analysis source code. 
+This artifact contains the source code for the ICSE 2025 paper: "FairSense: Long-Term Fairness Analysis of ML-Enabled Systems". It is composed by two parts: the simulation source code and the sensitivity analysis source code. 
 The experimental results of three case studies presented in the paper can be reproduced using this artifact.
 
 ## Provenance
