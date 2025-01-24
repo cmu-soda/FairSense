@@ -19,7 +19,9 @@ To run the artifact, we need to install Python 3 and R.
 
 **Python:** Tested on Version 3.7 (dependencies listed in `./requirements.txt`)
 
-- Install via: `pip install -r requirements.txt`
+- Create Conda environment: `conda create -n fairsense python=3.7`
+- Install dependencies: `pip install -r requirements.txt` (lib `rpy2` requires R installed)
+- *Note: The Python library `rpy2` requires R to be installed on your system before installation. However, if you do not intend to run the simulation for the Predictive Policing case study, you can skip installing R and rpy2.*
 
 **R:** Tested on Version 4.2.3 (required for Predictive Policing case study, dependencies listed in `./r_libraries.txt`)
 
