@@ -19,11 +19,20 @@ To run the artifact, we need to install Python 3 and R.
 
 **Python:** Tested on Version 3.7 (dependencies listed in `./requirements.txt`)
 
-- Create Conda environment: `conda create -n fairsense python=3.7`
-- Install dependencies: `pip install -r requirements.txt`
-- *Note: The Python library `rpy2` requires R to be installed on your system before installation. However, if you do not intend to run the simulation for the Predictive Policing case study, you can skip installing R and rpy2.*
+- Create Conda environment: 
+    ```
+    conda create -n fairsense python=3.7
+    conda activate fairsense
+    ``` 
+    (If you are new to Conda, refer to [Conda Guide](https://docs.conda.io/projects/conda/en/stable/user-guide/index.html))
+- Install dependencies: 
+    ```
+    pip install -r requirements.txt
+    ```
+- *Note: The Python library `rpy2` in `requirements.txt` requires R to be installed on your system before installation. However, if you do not intend to run the simulation for the Predictive Policing case study, you can skip installing R and rpy2.*
 
-**R:** Tested on Version 4.2.3 (required for Predictive Policing case study, dependencies listed in `./r_libraries.txt`)
+**R:** Tested on Version 4.2.3 (required for Predictive Policing case study; dependencies listed in `./r_libraries.txt`)
+
 
 ### Public Datasets
 The artifact contains all three case studies in the paper: **Loan lending**, **Opioid risk prediction**, and **Predictive policing**. 
